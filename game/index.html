@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sizzle &amp; Serve — a fast kitchen game</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #241a12; }
+  #game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  /* Read aloud, never shown: the status line screen readers announce. */
+  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>
+</head>
+<body>
+<canvas id="game" aria-label="Sizzle and Serve: cook burgers to order before the customers run out of patience"></canvas>
+<p id="status" role="status" aria-live="polite"></p>
+<script>
+  // Any error during boot or play is written into the status line, so a headless
+  // screenshot run can see it in the DOM instead of failing silently.
+  window.addEventListener('error', function (event) {
+    var el = document.getElementById('status');
+    if (el) el.textContent = 'ERROR: ' + (event.message || 'unknown');
+  });
+</script>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
